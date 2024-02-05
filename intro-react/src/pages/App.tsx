@@ -6,13 +6,22 @@ import style from './app.module.scss';
 import { ITasks } from '../component/tasks/tasks';
 
 function App() {
-  const [tarefas, setTarefas] = useState<ITasks[]>([]);
+  const [tasks, setTasks] = useState<ITasks[]>([]);
+  const [select, setSelect] = useState<ITasks>();
+
+  function selectTask(selectedTask: ITasks) {
+    setSelect(selectedTask);
+    setTasks(oldTasks => oldTasks.map(task => ({
+      ...task,
+      select: task.id === selectedTask.id ? true : false
+    })))
+  }
 
   return (
     <div className={style.AppStyle}>
-      <Form setTarefas={setTarefas} />
-      <List tarefas={tarefas} />
-      <Timer />
+      <Form setTasks={setTasks} />
+      <List tasks={tasks} selectTask={selectTask} />
+      <Timer select={select} />
     </div>
   );
 }

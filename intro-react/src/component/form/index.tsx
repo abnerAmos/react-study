@@ -4,12 +4,12 @@ import style from './form.module.scss';
 import { ITasks } from "../tasks/tasks";
 import { v4 as uuidv4 } from "uuid";
 
-class Form extends React.Component<{ setTarefas: React.Dispatch<SetStateAction<ITasks[]>> }> {
+class Form extends React.Component<{ setTasks: React.Dispatch<SetStateAction<ITasks[]>> }> {
   state = { nome: "", tempo: "00:00" }
 
-  adicionarTarefa(event: React.FormEvent<HTMLFormElement>) {
+  addTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    this.props.setTarefas(tarefasAntigas => [...tarefasAntigas, {
+    this.props.setTasks(oldTasks => [...oldTasks, {
       ...this.state,
       select: false,
       complete: false,
@@ -20,7 +20,7 @@ class Form extends React.Component<{ setTarefas: React.Dispatch<SetStateAction<I
 
   render() {
     return (
-      <form className={style.novaTarefa} onSubmit={this.adicionarTarefa.bind(this)}>
+      <form className={style.novaTarefa} onSubmit={this.addTask.bind(this)}>
         <div className={style.inputContainer}>
           <label htmlFor="tarefa">
             Adicione um novo estudo
